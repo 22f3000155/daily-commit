@@ -1,25 +1,22 @@
-name: Daily Commit
+name: Daily Commit Workflow
 
 on:
   schedule:
-    # Run daily at 6:30 AM UTC
-    - cron: "30 0 * * *"
+    - cron: '30 0 * * *' # Runs daily at 12:30 AM UTC
 
 jobs:
   daily-commit:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Add a dummy commit with your email in the step name
-      - name: Commit with email 22f3000155@ds.study.iitm.ac.in
+      - name: Make a Dummy Commit
         run: |
-          git config user.name "GitHub Action Bot"
-          git config user.email "22f3000155@ds.study.iitm.ac.in"
-          echo "Daily commit at $(date)" >> daily_commit_log.txt
-          git add daily_commit_log.txt
-          git commit -m "Daily commit at $(date)"
+          echo "Automated commit on $(date)" >> dummy_file.txt
+          git add dummy_file.txt
+          git commit -m "Automated commit on $(date)"
           git push
+
+      - name: Notify Maintainer (22f3000155@ds.study.iitm.ac.in)
+        run: echo "Workflow executed successfully!"
