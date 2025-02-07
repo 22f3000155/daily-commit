@@ -2,8 +2,8 @@ name: Daily Commit Workflow
 
 on:
   schedule:
-    - cron: '15 1 * * *' # Runs daily at 12:30 AM UTC
-  workflow_dispatch: # Allows manual triggering
+    - cron: '30 0 * * *' # Runs daily at 12:30 AM UTC
+  workflow_dispatch: # Allows manual triggering for testing
 
 jobs:
   daily-commit:
@@ -17,7 +17,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "22f3000155@ds.study.iitm.ac.in"
 
-      - name: Make a Dummy Commit
+      - name: Commit changes by 22f3000155@ds.study.iitm.ac.in
         run: |
           echo "Automated commit on $(date)" >> daily_commit.txt
           git add daily_commit.txt
