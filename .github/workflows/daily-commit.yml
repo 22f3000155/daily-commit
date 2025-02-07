@@ -1,10 +1,9 @@
 name: Daily Commit Workflow
 
 on:
-    schedule:
-      - cron: '51 0 * * *'
-    workflow_dispatch:
-  
+  schedule:
+    - cron: '30 0 * * *' # Runs daily at 12:30 AM UTC
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   daily-commit:
@@ -13,12 +12,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Configure Git User
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "22f3000155@ds.study.iitm.ac.in"
+
       - name: Make a Dummy Commit
         run: |
-          echo "Automated commit on $(date)" >> dummy_file.txt
-          git add dummy_file.txt
+          echo "Automated commit on $(date)" >> daily_commit.txt
+          git add daily_commit.txt
           git commit -m "Automated commit on $(date)"
           git push
-
-      - name: Notify Maintainer (22f3000155@ds.study.iitm.ac.in)
-        run: echo "Workflow executed successfully!"
